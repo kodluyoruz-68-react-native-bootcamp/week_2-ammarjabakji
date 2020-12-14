@@ -10,12 +10,10 @@ import TodoItem from './TodoItem';
  */
 
 function App() {
-  const [todoList, setTodoList] = useState([
-    {id: 1, task: 'asd'},
-    {id: 2, task: 'asssd'},
-    {id: 3, task: 'asasdasdssd'},
-  ]);
-  const addTodoFunction = (params) => () => console.log(params);
+  const [todoList, setTodoList] = useState([]);
+
+  const addTodoFunction = (params) => () =>
+    params !== '' && setTodoList([...todoList, {task: params}]);
 
   const renderList = ({item}) => <TodoItem todo={item} />;
 
@@ -26,13 +24,13 @@ function App() {
       }}>
       <View style={styles.todoHeader}>
         <Text style={styles.todoText}>TODO</Text>
-        <Text style={styles.todoCounter}>3</Text>
+        <Text style={styles.todoCounter}>{todoList.length}</Text>
       </View>
       <View style={styles.taskContainer}>
         <FlatList
           testID="list"
           data={todoList}
-          keyExtractor={(item, index) => item.id.toString()}
+          keyExtractor={(item, index) => String(index)}
           renderItem={renderList}
         />
         <CustomComponent addTodo={addTodoFunction} />

@@ -1,5 +1,7 @@
-import React from 'react';
-import {SafeAreaView, View, Text} from 'react-native';
+import React, {useState} from 'react';
+import {SafeAreaView, View, Text, FlatList, StyleSheet} from 'react-native';
+import CustomComponent from './CustomComponent';
+import TodoItem from './TodoItem';
 
 /**
  * TextInput: testID="input" (component which is user types the todo text)
@@ -8,10 +10,59 @@ import {SafeAreaView, View, Text} from 'react-native';
  */
 
 function App() {
+  const [todoList, setTodoList] = useState([
+    {id: 1, task: 'asd'},
+    {id: 2, task: 'asssd'},
+    {id: 3, task: 'asasdasdssd'},
+  ]);
+  const addTodoFunction = (params) => {
+    console.log('params', params);
+  };
+
+  const renderList = ({item}) => {
+    return <TodoItem todo={item} />;
+  };
+
   return (
-    // ...
-    null
+    <SafeAreaView
+      style={{
+        flex: 1,
+      }}>
+      <View style={styles.todoHeader}>
+        <Text style={styles.todoText}>TODO</Text>
+        <Text style={styles.todoCounter}>3</Text>
+      </View>
+      <View style={styles.taskContainer}>
+        <FlatList
+          testID="list"
+          data={todoList}
+          keyExtractor={(item, index) => item.id.toString()}
+          renderItem={renderList}
+        />
+        <CustomComponent addTodo={addTodoFunction} />
+      </View>
+    </SafeAreaView>
   );
 }
+const styles = StyleSheet.create({
+  todoHeader: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    margin: 15,
+  },
+  todoText: {
+    fontSize: 30,
+    color: '#0171b9',
+  },
+  todoCounter: {
+    fontSize: 30,
+  },
+  taskContainer: {
+    flex: 20,
+    justifyContent: 'space-between',
+    margin: 15,
+  },
+});
 
 export default App;

@@ -15,13 +15,9 @@ function App() {
     {id: 2, task: 'asssd'},
     {id: 3, task: 'asasdasdssd'},
   ]);
-  const addTodoFunction = (params) => {
-    console.log('params', params);
-  };
+  const addTodoFunction = (params) => () => console.log(params);
 
-  const renderList = ({item}) => {
-    return <TodoItem todo={item} />;
-  };
+  const renderList = ({item}) => <TodoItem todo={item} />;
 
   return (
     <SafeAreaView

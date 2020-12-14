@@ -15,7 +15,7 @@ function CustomComponent({addTodo}) {
         style={styles.input}
         testID="input"
         placeholder="Type something to do .."
-        onChangeText={addTodo}
+        onChangeText={(value) => setTask(value)}
       />
       <TouchableOpacity
         style={styles.button}

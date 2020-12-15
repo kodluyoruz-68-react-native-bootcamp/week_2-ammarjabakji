@@ -16,7 +16,7 @@ function App() {
     text !== '' &&
       setTodos([
         ...todoList,
-        {id: Math.random().toString(), task: text, checked: false},
+        {id: Math.random().toString(), task: text, isDone: false},
       ]);
   };
 
@@ -27,7 +27,7 @@ function App() {
   const onToggle = (id) => (e) => {
     setTodos(
       todoList.map((todo) =>
-        todo.id === id ? {...todo, checked: !todo.checked} : todo,
+        todo.id === id ? {...todo, isDone: !todo.isDone} : todo,
       ),
     );
     console.log(todoList);

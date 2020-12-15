@@ -1,16 +1,14 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 
 function TodoItem({todo, deleleTodo, onToggle}) {
   return (
     <TouchableOpacity
       testID="button"
-      style={styles[todo.checked ? 'inActive' : 'active']}
+      style={styles[todo.isDone ? 'inActive' : 'active']}
       onPress={onToggle(todo.id)}
       onLongPress={deleleTodo(todo.id)}>
-      <Text style={styles[todo.checked ? 'textDone' : 'text']}>
-        {todo.task}
-      </Text>
+      <Text style={styles[todo.isDone ? 'textDone' : 'text']}>{todo.task}</Text>
     </TouchableOpacity>
   );
 }

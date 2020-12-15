@@ -10,12 +10,32 @@ import TodoItem from './TodoItem';
  */
 
 function App() {
-  const [todoList, setTodoList] = useState([]);
+  const [todoList, setTodos] = useState([]);
 
-  const addTodoFunction = (params) => () =>
-    params !== '' && setTodoList([...todoList, {task: params}]);
+  const addTodo = (text) => () => {
+    text !== '' &&
+      setTodos([
+        ...todoList,
+        {id: Math.random().toString(), task: text, checked: false},
+      ]);
+  };
 
-  const renderList = ({item}) => <TodoItem todo={item} />;
+  const onRemove = (id) => (e) => {
+    setTodos(todoList.filter((todo) => todo.id !== id));
+  };
+
+  const onToggle = (id) => (e) => {
+    setTodos(
+      todoList.map((todo) =>
+        todo.id === id ? {...todo, checked: !todo.checked} : todo,
+      ),
+    );
+    console.log(todoList);
+  };
+
+  const renderList = ({item}) => (
+    <TodoItem todo={item} deleleTodo={onRemove} onToggle={onToggle} />
+  );
 
   return (
     <SafeAreaView
@@ -30,10 +50,11 @@ function App() {
         <FlatList
           testID="list"
           data={todoList}
-          keyExtractor={(item, index) => String(index)}
+          //keyExtractor={(item, index) => String(index)}
+          keyExtractor={(item, index) => item.id.toString()}
           renderItem={renderList}
         />
-        <CustomComponent addTodo={addTodoFunction} />
+        <CustomComponent addTodo={addTodo} />
       </View>
     </SafeAreaView>
   );

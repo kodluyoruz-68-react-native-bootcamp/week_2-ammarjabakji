@@ -1,18 +1,16 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 
-function TodoItem({todo}) {
-  const [active, setActive] = useState(true);
-  const activeFunction = () => {
-    setActive(!active);
-    console.log(active);
-  };
-
+function TodoItem({todo, deleleTodo, onToggle}) {
   return (
     <TouchableOpacity
-      style={styles[active ? 'active' : 'inActive']}
-      onPress={() => activeFunction()}>
-      <Text style={styles.task}>{todo.task}</Text>
+      testID="button"
+      style={styles[todo.checked ? 'inActive' : 'active']}
+      onPress={onToggle(todo.id)}
+      onLongPress={deleleTodo(todo.id)}>
+      <Text style={styles[todo.checked ? 'textDone' : 'text']}>
+        {todo.task}
+      </Text>
     </TouchableOpacity>
   );
 }
@@ -30,8 +28,10 @@ const styles = StyleSheet.create({
     margin: 5,
     backgroundColor: '#64a8d4',
   },
-  task: {
+  text: {color: '#fff'},
+  textDone: {
     color: '#fff',
+    textDecorationLine: 'line-through',
   },
 });
 

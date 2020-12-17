@@ -12,7 +12,7 @@ import TodoItem from './TodoItem';
 function App() {
   const [todoList, setTodos] = useState([]);
 
-  const addTodo = (text) => () => {
+  const addTodo = (text) => {
     text !== '' &&
       setTodos([
         ...todoList,

@@ -9,18 +9,24 @@ import {
 
 function CustomComponent({addTodo}) {
   const [task, setTask] = useState('');
+  const handleAddTodo = () => {
+    task && addTodo(task);
+    setTask('');
+  };
+
   return (
     <View style={styles.inputConatiner}>
       <TextInput
         style={styles.input}
         testID="input"
+        value={task}
         placeholder="Type something to do .."
         onChangeText={(value) => setTask(value)}
       />
       <TouchableOpacity
         style={styles.button}
         testID="button"
-        onPress={addTodo(task)}>
+        onPress={handleAddTodo}>
         <Text style={styles.buttonText}>ADD TODO</Text>
       </TouchableOpacity>
     </View>
